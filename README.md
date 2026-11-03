@@ -11,7 +11,7 @@
 <!-- NAME / TAGLINE - animated typing -->
 <div align="center">
   <img
-    src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3800&pause=1100&color=AA9BEF&center=true&vCenter=true&width=920&height=55&lines=Hi%2C+I%27m+Monsse%E2%9C%A6;Information+Systems+Engineer;Full-Stack+%26+Mobile+Developer"
+    src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3800&pause=1100&color=6C63FF&center=true&vCenter=true&width=920&height=55&lines=Hi%2C+I%27m+Monsse%E2%9C%A6;Information+Systems+Engineer;Full-Stack+%26+Mobile+Developer"
     alt="Monsse — Information Systems Engineer, Full-Stack and Mobile Developer"
   />
 </div>

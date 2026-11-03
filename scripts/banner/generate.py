@@ -25,7 +25,7 @@ LOGOS = Path(__file__).resolve().parent / "logos"
 DATA = Path(__file__).resolve().parent / "data"
 
 W, H = 1180, 610
-LOOP_SECONDS = 14.2
+LOOP_SECONDS = 17.5
 INTRO_SECONDS = 3.2
 TRAVELLER_COUNT = 900
 SEED = 314159
@@ -145,9 +145,18 @@ def make_logos() -> dict[str, Image.Image]:
     )
     logos["falcon"] = falcon
 
-    # Development + AI: a microchip with a clear AI core.
-    dev_ai = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    d = ImageDraw.Draw(dev_ai)
+    # Development: a bold </> mark that remains readable as particles.
+    code = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(code)
+    stroke = 38
+    d.line([(155, 105), (72, 200), (155, 295)], fill="black", width=stroke, joint="curve")
+    d.line([(245, 105), (328, 200), (245, 295)], fill="black", width=stroke, joint="curve")
+    d.line([(226, 82), (174, 318)], fill="black", width=stroke)
+    logos["code"] = code
+
+    # Artificial intelligence: a microchip with a clear AI core.
+    ai = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(ai)
     d.rounded_rectangle((105, 105, 295, 295), radius=30, outline="black", width=24)
     for offset in (135, 175, 225, 265):
         d.line((offset, 72, offset, 105), fill="black", width=16)
@@ -159,7 +168,7 @@ def make_logos() -> dict[str, Image.Image]:
     ai_w = bounds[2] - bounds[0]
     ai_h = bounds[3] - bounds[1]
     d.text(((size - ai_w) / 2, (size - ai_h) / 2 - bounds[1]), "AI", font=ai_font, fill="black")
-    logos["dev-ai"] = dev_ai
+    logos["ai"] = ai
 
     for name, image in logos.items():
         image.save(LOGOS / f"{name}.png", optimize=True)
@@ -314,15 +323,23 @@ def render_svg(
     source = portrait[rng.choice(len(portrait), n, replace=False)]
     cosmos = transport(source, logo_points["cosmos"][:n])
     falcon = transport(cosmos, logo_points["falcon"][:n])
-    dev_ai = transport(falcon, logo_points["dev-ai"][:n])
+    code = transport(falcon, logo_points["code"][:n])
+    ai = transport(code, logo_points["ai"][:n])
 
-    # Explicit uneven phase boundaries: 3.0 portrait, 2.0 per logo,
-    # and four 1.3 transitions = 14.2 seconds.
-    times = [0, 3.0, 4.3, 6.3, 7.6, 9.6, 10.9, 12.9, 14.2]
+    # Explicit uneven phase boundaries: 3.0 portrait, 2.0 per formation,
+    # and five 1.3 transitions = 17.5 seconds.
+    times = [0, 3.0, 4.3, 6.3, 7.6, 9.6, 10.9, 12.9, 14.2, 16.2, 17.5]
     key_times = ";".join(num(v / LOOP_SECONDS) for v in times)
     # Returning each traveller to its exact starting portrait coordinate keeps
     # the repeat boundary seamless. All logo-to-logo morphs use optimal transport.
-    frames = [source, source, cosmos, cosmos, falcon, falcon, dev_ai, dev_ai, source]
+    frames = [
+        source, source,
+        cosmos, cosmos,
+        falcon, falcon,
+        code, code,
+        ai, ai,
+        source,
+    ]
     opacity_values = "0;0;1;1;1;1;1;1;0"
 
     parts: list[str] = [
@@ -331,7 +348,7 @@ def render_svg(
         'aria-labelledby="title desc">',
         "<title id=\"title\">devbymon's live system profile</title>",
         '<desc id="desc">Animated terminal profile with a dithered portrait, particle universe, '
-        "falcon silhouette, and development AI symbol.</desc>",
+        "falcon silhouette, code symbol, and AI chip.</desc>",
         "<defs>",
         '<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">'
         f'<feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="{t["shadow"]}" '

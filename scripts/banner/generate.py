@@ -12,7 +12,7 @@ import math
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 from scipy.optimize import linear_sum_assignment
 from scipy.spatial.distance import cdist
 
@@ -75,53 +75,66 @@ THEMES = {
 
 
 def make_logos() -> dict[str, Image.Image]:
-    """Create clean 400px black-on-transparent silhouette sources."""
+    """Create personal 400px black-on-transparent particle silhouettes."""
     LOGOS.mkdir(parents=True, exist_ok=True)
     size = 400
     logos: dict[str, Image.Image] = {}
 
-    # Rust-inspired gear: twelve teeth, heavy annulus, and hub cutout.
-    rust = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    d = ImageDraw.Draw(rust)
-    center = np.array([200.0, 200.0])
-    outer: list[tuple[float, float]] = []
-    for tooth in range(12):
-        base = tooth * math.tau / 12
-        for offset, radius in [
-            (-0.42, 150), (-0.30, 178), (0.30, 178), (0.42, 150)
-        ]:
-            a = base + offset * math.tau / 12
-            outer.append(tuple(center + radius * np.array([math.cos(a), math.sin(a)])))
-    d.polygon(outer, fill="black")
-    d.ellipse((70, 70, 330, 330), fill="black")
-    d.ellipse((128, 128, 272, 272), fill=(0, 0, 0, 0))
-    d.ellipse((174, 174, 226, 226), fill="black")
-    logos["rust"] = rust
+    def bold_font(size_px: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
+        for font_name in (
+            "DejaVuSans-Bold.ttf",
+            "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        ):
+            try:
+                return ImageFont.truetype(font_name, size_px)
+            except OSError:
+                continue
+        return ImageFont.load_default()
 
-    # </> mark built from broad, rounded strokes.
-    code = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    d = ImageDraw.Draw(code)
-    stroke = 42
-    d.line([(154, 95), (66, 200), (154, 305)], fill="black", width=stroke, joint="curve")
-    d.line([(246, 95), (334, 200), (246, 305)], fill="black", width=stroke, joint="curve")
-    d.line([(225, 72), (174, 328)], fill="black", width=stroke)
-    logos["code"] = code
+    # A small particle universe: Saturn-like orbit, stars, and distant nodes.
+    cosmos = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(cosmos)
+    d.ellipse((55, 145, 345, 255), outline="black", width=15)
+    d.ellipse((125, 125, 275, 275), fill="black")
+    d.ellipse((162, 162, 238, 238), fill=(0, 0, 0, 0))
+    for x, y, radius in ((72, 82, 12), (322, 104, 9), (330, 305, 13), (92, 318, 8)):
+        d.polygon(
+            [(x, y - radius), (x + radius // 3, y - radius // 3),
+             (x + radius, y), (x + radius // 3, y + radius // 3),
+             (x, y + radius), (x - radius // 3, y + radius // 3),
+             (x - radius, y), (x - radius // 3, y - radius // 3)],
+            fill="black",
+        )
+    logos["cosmos"] = cosmos
 
-    # Stellar-inspired four-point star with a small connected node network.
-    stellar = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    d = ImageDraw.Draw(stellar)
-    star: list[tuple[float, float]] = []
-    for i in range(16):
-        a = -math.pi / 2 + i * math.pi / 8
-        radius = 137 if i % 4 == 0 else (45 if i % 2 == 0 else 25)
-        star.append((200 + math.cos(a) * radius, 200 + math.sin(a) * radius))
-    d.polygon(star, fill="black")
-    nodes = [(82, 112), (322, 106), (326, 300), (88, 316)]
-    for a, b in zip(nodes, nodes[1:] + nodes[:1]):
-        d.line([a, b], fill="black", width=12)
-    for x, y in nodes:
-        d.ellipse((x - 19, y - 19, x + 19, y + 19), fill="black")
-    logos["stellar"] = stellar
+    # ULACIT wordmark, kept broad enough to remain legible as moving particles.
+    ulacit = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(ulacit)
+    font = bold_font(76)
+    text = "ULACIT"
+    bounds = d.textbbox((0, 0), text, font=font)
+    text_w = bounds[2] - bounds[0]
+    text_h = bounds[3] - bounds[1]
+    d.text(((size - text_w) / 2, (size - text_h) / 2 - bounds[1]), text, font=font, fill="black")
+    d.rounded_rectangle((62, 260, 338, 276), radius=8, fill="black")
+    logos["ulacit"] = ulacit
+
+    # Development + AI: a microchip with a clear AI core.
+    dev_ai = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(dev_ai)
+    d.rounded_rectangle((105, 105, 295, 295), radius=30, outline="black", width=24)
+    for offset in (135, 175, 225, 265):
+        d.line((offset, 72, offset, 105), fill="black", width=16)
+        d.line((offset, 295, offset, 328), fill="black", width=16)
+        d.line((72, offset, 105, offset), fill="black", width=16)
+        d.line((295, offset, 328, offset), fill="black", width=16)
+    ai_font = bold_font(88)
+    bounds = d.textbbox((0, 0), "AI", font=ai_font)
+    ai_w = bounds[2] - bounds[0]
+    ai_h = bounds[3] - bounds[1]
+    d.text(((size - ai_w) / 2, (size - ai_h) / 2 - bounds[1]), "AI", font=ai_font, fill="black")
+    logos["dev-ai"] = dev_ai
 
     for name, image in logos.items():
         image.save(LOGOS / f"{name}.png", optimize=True)
@@ -274,9 +287,9 @@ def render_svg(
     t = THEMES[theme_name]
     n = min(TRAVELLER_COUNT, len(portrait))
     source = portrait[rng.choice(len(portrait), n, replace=False)]
-    rust = transport(source, logo_points["rust"][:n])
-    code = transport(rust, logo_points["code"][:n])
-    stellar = transport(code, logo_points["stellar"][:n])
+    cosmos = transport(source, logo_points["cosmos"][:n])
+    ulacit = transport(cosmos, logo_points["ulacit"][:n])
+    dev_ai = transport(ulacit, logo_points["dev-ai"][:n])
 
     # Explicit uneven phase boundaries: 3.0 portrait, 2.0 per logo,
     # and four 1.3 transitions = 14.2 seconds.
@@ -284,7 +297,7 @@ def render_svg(
     key_times = ";".join(num(v / LOOP_SECONDS) for v in times)
     # Returning each traveller to its exact starting portrait coordinate keeps
     # the repeat boundary seamless. All logo-to-logo morphs use optimal transport.
-    frames = [source, source, rust, rust, code, code, stellar, stellar, source]
+    frames = [source, source, cosmos, cosmos, ulacit, ulacit, dev_ai, dev_ai, source]
     opacity_values = "0;0;1;1;1;1;1;1;0"
 
     parts: list[str] = [
@@ -292,8 +305,8 @@ def render_svg(
         f'width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
         'aria-labelledby="title desc">',
         "<title id=\"title\">devbymon's live system profile</title>",
-        '<desc id="desc">Animated terminal profile with a dithered portrait and '
-        "Rust, code, and Stellar silhouettes.</desc>",
+        '<desc id="desc">Animated terminal profile with a dithered portrait, particle universe, '
+        "ULACIT wordmark, and development AI symbol.</desc>",
         "<defs>",
         '<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">'
         f'<feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="{t["shadow"]}" '
@@ -331,8 +344,8 @@ def render_svg(
         '<g opacity="1">',
     ]
 
-    # Dense portrait drift: 94 independently noisy bands moving toward Rust's centroid.
-    rust_centroid = rust.mean(axis=0)
+    # Dense portrait drift: 94 independently noisy bands moving toward the cosmos.
+    cosmos_centroid = cosmos.mean(axis=0)
     band_ids = rng.integers(0, 94, size=len(portrait))
     noise = rng.normal(0, 4, size=(94, 2))
     for band in range(94):
@@ -340,7 +353,7 @@ def render_svg(
         if not len(pts):
             continue
         centroid = pts.mean(axis=0)
-        delta = (rust_centroid - centroid) * 0.18 + noise[band]
+        delta = (cosmos_centroid - centroid) * 0.18 + noise[band]
         d = point_path(pts)
         parts.append(
             f'<path d="{d}" fill="none" stroke="{t["portrait"]}" stroke-width="1" '
@@ -388,10 +401,6 @@ def render_svg(
     parts.extend(
         [
             "</g>",
-            # Small frame telemetry.
-            f'<text x="58" y="551" fill="{t["muted"]}" '
-            'font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="10">'
-            f'PTS {len(portrait):05d} · FS/SERPENTINE</text>',
             # Right information panel.
             f'<rect x="474" y="88" width="672" height="472" rx="6" fill="{t["panel2"]}" '
             f'stroke="{t["line"]}"/>',
@@ -438,13 +447,6 @@ def render_svg(
 
     parts.extend(
         [
-            f'<path d="M490 530H1130" stroke="{t["line"]}"/>',
-            f'<text x="491" y="548" fill="{t["accent"]}" '
-            'font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="11">'
-            "● ALL SYSTEMS NOMINAL</text>",
-            f'<text x="1128" y="548" text-anchor="end" fill="{t["muted"]}" '
-            'font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="11">'
-            "UTC-6 · LATAM NODE</text>",
             "</svg>",
         ]
     )
@@ -475,7 +477,7 @@ def main() -> None:
         for name, points in sampled.items():
             np.save(DATA / f"{name}-{theme}.npy", points)
         svg = render_svg(theme, portraits[theme], sampled, rng)
-        output = ASSETS / f"banner-{theme}.v9.svg"
+        output = ASSETS / f"banner-{theme}.v10.svg"
         output.write_text(svg, encoding="utf-8")
         byte_size = output.stat().st_size
         print(

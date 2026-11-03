@@ -66,6 +66,8 @@ and people-focused leadership.
 
 </div>
 
+<br>
+
 ---
 
 <div align="center">
@@ -99,13 +101,5 @@ and people-focused leadership.
 </td>
 </tr>
 </table>
-
-</div>
-
----
-
-<div align="center">
-
-<sub>` Build with love · @devbymon `</sub>
 
 </div>

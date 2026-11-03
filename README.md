@@ -98,6 +98,6 @@ and people-focused leadership.
 
 <div align="center">
 
-<sub><samp>I don't just imagine it. I build it.</samp></sub>
+<p><strong><em>I don't just imagine it. I build it.</em></strong></p>
 
 </div>

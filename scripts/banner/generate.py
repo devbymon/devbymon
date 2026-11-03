@@ -19,13 +19,12 @@ from scipy.spatial.distance import cdist
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "assets/source/portrait-cutout.png"
-FALCON_SOURCE = ROOT / "assets/source/falcon-silhouette.png"
 ASSETS = ROOT / "assets"
 LOGOS = Path(__file__).resolve().parent / "logos"
 DATA = Path(__file__).resolve().parent / "data"
 
 W, H = 1180, 610
-LOOP_SECONDS = 17.5
+LOOP_SECONDS = 14.2
 INTRO_SECONDS = 3.2
 TRAVELLER_COUNT = 900
 SEED = 314159
@@ -127,24 +126,6 @@ def make_logos() -> dict[str, Image.Image]:
         )
     logos["cosmos"] = cosmos
 
-    # Original falcon silhouette, normalized into a bold particle-friendly mask.
-    falcon_source = Image.open(FALCON_SOURCE).convert("RGBA")
-    falcon_alpha = falcon_source.getchannel("A").point(lambda value: 255 if value > 127 else 0)
-    bounds = falcon_alpha.getbbox()
-    if bounds is None:
-        raise ValueError(f"Falcon silhouette has no visible pixels: {FALCON_SOURCE}")
-    falcon_alpha = falcon_alpha.crop(bounds)
-    falcon_alpha.thumbnail((340, 340), Image.Resampling.LANCZOS)
-    falcon = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    falcon_mask = Image.new("RGBA", falcon_alpha.size, "black")
-    falcon_mask.putalpha(falcon_alpha)
-    falcon.paste(
-        falcon_mask,
-        ((size - falcon_alpha.width) // 2, (size - falcon_alpha.height) // 2),
-        falcon_mask,
-    )
-    logos["falcon"] = falcon
-
     # Development: a bold </> mark that remains readable as particles.
     code = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     d = ImageDraw.Draw(code)
@@ -221,7 +202,7 @@ def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
 
     if theme == "dark":
         lum = np.asarray(ImageOps.grayscale(rgb), dtype=np.float32)
-        prepared = Image.fromarray(np.uint8(np.clip(lum * alpha, 0, 255)), "L")
+        prepared = Image.fromarray(np.uint8(np.clip(lum * alpha, 0, 255)))
         select_lit = True
     else:
         white = Image.new("RGBA", crop.size, "white")
@@ -232,7 +213,7 @@ def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
     # Equalize against the subject only (ignore empty alpha) so lit skin vs dark
     # hair doesn't crush midtones; then punch local contrast for facial edges.
     if theme == "dark":
-        mask = Image.fromarray(np.uint8((alpha > 0.08) * 255), "L")
+        mask = Image.fromarray(np.uint8((alpha > 0.08) * 255))
         prepared = ImageOps.equalize(prepared, mask=mask)
     else:
         prepared = ImageOps.autocontrast(prepared, cutoff=1)
@@ -322,25 +303,24 @@ def render_svg(
     n = min(TRAVELLER_COUNT, len(portrait))
     source = portrait[rng.choice(len(portrait), n, replace=False)]
     cosmos = transport(source, logo_points["cosmos"][:n])
-    falcon = transport(cosmos, logo_points["falcon"][:n])
-    code = transport(falcon, logo_points["code"][:n])
+    code = transport(cosmos, logo_points["code"][:n])
     ai = transport(code, logo_points["ai"][:n])
 
     # Explicit uneven phase boundaries: 3.0 portrait, 2.0 per formation,
-    # and five 1.3 transitions = 17.5 seconds.
-    times = [0, 3.0, 4.3, 6.3, 7.6, 9.6, 10.9, 12.9, 14.2, 16.2, 17.5]
+    # and four 1.3 transitions = 14.2 seconds.
+    times = [0, 3.0, 4.3, 6.3, 7.6, 9.6, 10.9, 12.9, 14.2]
     key_times = ";".join(num(v / LOOP_SECONDS) for v in times)
     # Returning each traveller to its exact starting portrait coordinate keeps
     # the repeat boundary seamless. All logo-to-logo morphs use optimal transport.
     frames = [
         source, source,
         cosmos, cosmos,
-        falcon, falcon,
         code, code,
         ai, ai,
         source,
     ]
-    opacity_values = "0;0;1;1;1;1;1;1;0"
+    traveller_opacity_values = "0;0;1;1;1;1;1;1;0"
+    portrait_opacity_values = ".94;.94;0;0;0;0;0;0;.94"
 
     parts: list[str] = [
         '<svg xmlns="http://www.w3.org/2000/svg" '
@@ -348,7 +328,7 @@ def render_svg(
         'aria-labelledby="title desc">',
         "<title id=\"title\">devbymon's live system profile</title>",
         '<desc id="desc">Animated terminal profile with a dithered portrait, particle universe, '
-        "falcon silhouette, code symbol, and AI chip.</desc>",
+        "code symbol, and AI chip.</desc>",
         "<defs>",
         '<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">'
         f'<feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="{t["shadow"]}" '
@@ -397,16 +377,19 @@ def render_svg(
         centroid = pts.mean(axis=0)
         delta = (cosmos_centroid - centroid) * 0.18 + noise[band]
         d = point_path(pts)
+        delta_position = f'{num(delta[0])} {num(delta[1])}'
+        drift_values = ";".join(
+            ["0 0", "0 0", delta_position, delta_position] + ["0 0"] * 5
+        )
         parts.append(
             f'<path d="{d}" fill="none" stroke="{t["portrait"]}" stroke-width="1" '
             'opacity=".94">'
             f'<animateTransform attributeName="transform" type="translate" begin="{INTRO_SECONDS}s" '
             f'dur="{LOOP_SECONDS}s" repeatCount="indefinite" calcMode="linear" '
-            f'keyTimes="{key_times}" values="0 0;0 0;{num(delta[0])} {num(delta[1])};'
-            f'{num(delta[0])} {num(delta[1])};0 0;0 0;0 0;0 0;0 0"/>'
+            f'keyTimes="{key_times}" values="{drift_values}"/>'
             f'<animate attributeName="opacity" begin="{INTRO_SECONDS}s" dur="{LOOP_SECONDS}s" '
             f'repeatCount="indefinite" keyTimes="{key_times}" '
-            'values=".94;.94;0;0;0;0;0;0;.94"/></path>'
+            f'values="{portrait_opacity_values}"/></path>'
         )
 
     # Optimal-transport travellers, represented as tiny path squares (never glyphs).
@@ -419,7 +402,7 @@ def render_svg(
             f'keyTimes="{key_times}" values="{positions}"/>'
             f'<animate attributeName="opacity" begin="{INTRO_SECONDS}s" dur="{LOOP_SECONDS}s" '
             f'repeatCount="indefinite" calcMode="linear" keyTimes="{key_times}" '
-            f'values="{opacity_values}"/></path>'
+            f'values="{traveller_opacity_values}"/></path>'
         )
     parts.append("</g>")
 
@@ -498,8 +481,6 @@ def render_svg(
 def main() -> None:
     if not SOURCE.exists():
         raise SystemExit(f"Missing source portrait: {SOURCE}")
-    if not FALCON_SOURCE.exists():
-        raise SystemExit(f"Missing falcon silhouette: {FALCON_SOURCE}")
     ASSETS.mkdir(parents=True, exist_ok=True)
     DATA.mkdir(parents=True, exist_ok=True)
     logos = make_logos()
@@ -521,7 +502,7 @@ def main() -> None:
         for name, points in sampled.items():
             np.save(DATA / f"{name}-{theme}.npy", points)
         svg = render_svg(theme, portraits[theme], sampled, rng)
-        output = ASSETS / f"banner-{theme}.v10.svg"
+        output = ASSETS / f"banner-{theme}.v12.svg"
         output.write_text(svg, encoding="utf-8")
         byte_size = output.stat().st_size
         print(

@@ -8,7 +8,8 @@ These are files in your own repo, so they render as long as GitHub renders.
 
     python scripts/cards.py --user devbymon --out assets
 
-Writes <out>/card-stats-{dark,light}.svg plus one card per repo listed in
+Writes <out>/card-stats-{dark,light}.svg,
+<out>/card-languages-{dark,light}.svg, plus one card per repo listed in
 assets/projects.json, as <out>/card-<repo>-{dark,light}.svg.
 
 Star and fork counts come from the live API on every run. Descriptions come from
@@ -26,6 +27,7 @@ import json
 import os
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -281,6 +283,66 @@ def render_repo(repo, theme):
     return frame(W, H, c, "".join(out), f'{repo["name"]} repository card')
 
 
+def render_languages(languages, theme):
+    """Render a compact, self-hosted language breakdown card."""
+    c = THEMES[theme]
+    W, H, pad = 480, 165, 22
+    total = sum(size for _, size in languages) or 1
+    entries = [(name, size / total * 100) for name, size in languages[:6]]
+    out = [
+        f'<text x="{pad}" y="{pad + 14}" font-size="15" font-weight="700" '
+        f'fill="{c["title"]}">Most used languages</text>',
+        f'<text x="{W - pad}" y="{pad + 14}" font-size="11" text-anchor="end" '
+        f'fill="{c["muted"]}">by repository bytes</text>',
+    ]
+
+    bar_x, bar_y, bar_w, bar_h = pad, 54, W - 2 * pad, 10
+    cursor = bar_x
+    for index, (name, percentage) in enumerate(entries):
+        width = bar_w * percentage / 100
+        color = LANG_COLOR.get(name, c["accent"] if index == 0 else c["muted"])
+        out.append(
+            f'<rect x="{cursor:.1f}" y="{bar_y}" width="{max(width, 1):.1f}" '
+            f'height="{bar_h}" fill="{color}"/>'
+        )
+        cursor += width
+
+    for index, (name, percentage) in enumerate(entries):
+        col, row = index % 2, index // 2
+        x = pad + col * 225
+        y = 88 + row * 28
+        color = LANG_COLOR.get(name, c["accent"] if index == 0 else c["muted"])
+        out.extend([
+            f'<circle cx="{x + 5}" cy="{y - 4}" r="5" fill="{color}"/>',
+            f'<text x="{x + 16}" y="{y}" font-size="11.5" fill="{c["text"]}">'
+            f'{esc(name)}</text>',
+            f'<text x="{x + 205}" y="{y}" font-size="11" text-anchor="end" '
+            f'fill="{c["muted"]}">{percentage:.1f}%</text>',
+        ])
+
+    if not entries:
+        out.append(
+            f'<text x="{W / 2}" y="100" text-anchor="middle" font-size="12" '
+            f'fill="{c["muted"]}">No language data available yet.</text>'
+        )
+    return frame(W, H, c, "".join(out), "Most used GitHub languages")
+
+
+def fetch_languages(repos, token):
+    """Aggregate GitHub Linguist byte counts across owned, non-fork repos."""
+    totals = {}
+    for repo in repos:
+        path = urllib.parse.urlparse(repo["languages_url"]).path
+        try:
+            breakdown = rest(path, token)
+        except (urllib.error.HTTPError, urllib.error.URLError) as error:
+            print(f'  languages unavailable for {repo["name"]}: {error}', file=sys.stderr)
+            continue
+        for language, size in breakdown.items():
+            totals[language] = totals.get(language, 0) + size
+    return sorted(totals.items(), key=lambda item: item[1], reverse=True)
+
+
 # --------------------------------------------------------------------------- #
 
 
@@ -325,6 +387,12 @@ def main(argv=None):
         dest = args.out / f"card-stats-{theme}.svg"
         dest.write_text(render_stats(args.user, tiles, theme), encoding="utf-8")
     print(f"wrote card-stats-*.svg  ({len(tiles)} tiles)")
+
+    languages = fetch_languages(owned, token)
+    for theme in ("dark", "light"):
+        dest = args.out / f"card-languages-{theme}.svg"
+        dest.write_text(render_languages(languages, theme), encoding="utf-8")
+    print(f"wrote card-languages-*.svg  ({len(languages[:6])} languages)")
 
     if not args.projects.exists():
         print(f"no {args.projects}, skipping repo cards")

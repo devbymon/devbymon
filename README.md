@@ -110,7 +110,11 @@ technology initiatives that create a positive impact.
 
 <br>
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=devbymon&layout=compact&theme=transparent&hide_border=true&title_color=aa9bef&text_color=8b949e" height="165" alt="most used languages">
+<picture>
+  <source media="(prefers-color-scheme: dark)"  srcset="assets/card-languages-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/card-languages-light.svg">
+  <img src="assets/card-languages-dark.svg" width="480" alt="most used languages">
+</picture>
 
 </div>
 

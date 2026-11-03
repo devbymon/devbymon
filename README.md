@@ -16,11 +16,7 @@
   <img src="assets/banner-dark.v9.svg" width="100%" alt="Animated visual profile for @devbymon">
 </picture>
 
-<br>
-
-<p align="center"><strong><samp>I don't just imagine it. I build it.</samp></strong></p>
-
-<br>
+<br><br>
 
 <a href="https://linkedin.com/in/monsserratt-esquivel-gonz%C3%A1lez-b799992ab"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>&nbsp;&nbsp;
 <img src="https://img.shields.io/badge/Instagram-0d1117?style=for-the-badge&logo=instagram&logoColor=AA9BEF" alt="Instagram — link coming soon">
@@ -95,5 +91,13 @@ and people-focused leadership.
 </td>
 </tr>
 </table>
+
+</div>
+
+---
+
+<div align="center">
+
+<sub><samp>I don't just imagine it. I build it.</samp></sub>
 
 </div>

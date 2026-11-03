@@ -93,18 +93,36 @@ def make_logos() -> dict[str, Image.Image]:
                 continue
         return ImageFont.load_default()
 
-    # A small particle universe: Saturn-like orbit, stars, and distant nodes.
+    # Four-arm particle galaxy adapted from Gestu-Reverse-AI's GalaxyFormation.
     cosmos = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     d = ImageDraw.Draw(cosmos)
-    d.ellipse((55, 145, 345, 255), outline="black", width=15)
-    d.ellipse((125, 125, 275, 275), fill="black")
-    d.ellipse((162, 162, 238, 238), fill=(0, 0, 0, 0))
-    for x, y, radius in ((72, 82, 12), (322, 104, 9), (330, 305, 13), (92, 318, 8)):
-        d.polygon(
-            [(x, y - radius), (x + radius // 3, y - radius // 3),
-             (x + radius, y), (x + radius // 3, y + radius // 3),
-             (x, y + radius), (x - radius // 3, y + radius // 3),
-             (x - radius, y), (x - radius // 3, y - radius // 3)],
+    galaxy_rng = np.random.default_rng(SEED + 404)
+    galaxy_count = 3200
+    arm_count = 4
+    for index in range(galaxy_count):
+        progress = index / max(1, galaxy_count - 1)
+        radius = math.pow(progress, 1.55) * 168
+        arm = index % arm_count
+        jitter = galaxy_rng.normal(0, 0.08 + radius * 0.0028)
+        radial_noise = galaxy_rng.normal(0, 2.3 + radius * 0.018)
+        angle = (arm / arm_count) * math.tau + (radius / 168) * 6.9 + jitter
+        x = 200 + math.cos(angle) * (radius + radial_noise)
+        y = 200 + math.sin(angle) * (radius + radial_noise) * 0.78
+        dot_radius = 2 if progress < 0.18 or index % 17 == 0 else 1
+        d.ellipse(
+            (x - dot_radius, y - dot_radius, x + dot_radius, y + dot_radius),
+            fill="black",
+        )
+
+    # Bright compact core plus a few outlying stars for depth.
+    for _ in range(260):
+        angle = galaxy_rng.uniform(0, math.tau)
+        radius = abs(galaxy_rng.normal(0, 22))
+        x = 200 + math.cos(angle) * radius
+        y = 200 + math.sin(angle) * radius * 0.72
+        dot_radius = 2 if radius < 10 else 1
+        d.ellipse(
+            (x - dot_radius, y - dot_radius, x + dot_radius, y + dot_radius),
             fill="black",
         )
     logos["cosmos"] = cosmos

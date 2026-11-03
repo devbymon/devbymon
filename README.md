@@ -9,7 +9,12 @@
 -->
 
 <!-- NAME / TAGLINE - animated typing -->
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3800&pause=1100&color=AA9BEF&center=true&vCenter=true&width=920&height=55&lines=Monsserratt+Esquivel+Gonz%C3%A1lez;Information+Systems+Engineer;Mobile+%26+Full-Stack+Developer;Building+tech.+Leading+communities.+Creating+impact." alt="Monsserratt Esquivel González — Information Systems Engineer, Mobile and Full-Stack Developer">
+<div align="center">
+  <img
+    src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3800&pause=1100&color=AA9BEF&center=true&vCenter=true&width=920&height=55&lines=Hi%2C+I%27m+Monse+%E2%9C%A6;Software+Engineer;Full-Stack+%26+Mobile+Developer;I+don%27t+just+imagine+it.+I+build+it."
+    alt="Monse — Software Engineer, Full-Stack and Mobile Developer"
+  />
+</div>
 
 <br>
 

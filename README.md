@@ -20,15 +20,13 @@
 
 <!-- NAME / TAGLINE - animated typing -->
 <a href="https://github.com/devbymon">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=26&duration=2600&pause=900&color=AA9BEF&center=true&vCenter=true&width=880&lines=TU+NOMBRE+-+TU+ROL;TU+STACK+O+ESPECIALIDAD;UNA+FRASE+QUE+TE+REPRESENTE" alt="typing banner">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=26&duration=2600&pause=900&color=AA9BEF&center=true&vCenter=true&width=880&lines=Mon+-+Information+Systems+Engineer;Software+Development+/+Leadership+/+Innovation;Building+technology+with+positive+impact" alt="typing banner">
 </a>
 
 <br>
 
 <!-- SOCIALS — LinkedIn stays brand blue (glyph vanishes on custom fills). Others themed. -->
-<a href="URL_DE_LINKEDIN"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>&nbsp;&nbsp;
-<a href="URL_DE_INSTAGRAM"><img src="https://img.shields.io/badge/Instagram-0d1117?style=for-the-badge&logo=instagram&logoColor=aa9bef" alt="Instagram"></a>&nbsp;&nbsp;
-<a href="URL_DE_X"><img src="https://img.shields.io/badge/X-0d1117?style=for-the-badge&logo=x&logoColor=aa9bef" alt="X"></a>
+<a href="https://linkedin.com/in/monsserratt-esquivel-gonz%C3%A1lez-b799992ab"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
 
 <br>
 
@@ -41,16 +39,16 @@
 
 ## This is me :)
 
-Hi, I'm **[TU NOMBRE]**, [TU ROL O ESPECIALIDAD], broadcasting from [TU PAÍS] [TU BANDERA].
-[ESCRIBE AQUÍ DOS O TRES LÍNEAS SOBRE LO QUE HACES, LO QUE TE GUSTA CREAR
-Y EL IMPACTO QUE QUIERES GENERAR].
+Hi, I'm **Monsserratt**, an Information Systems Engineer from Costa Rica 🇨🇷.
+I combine software development, project management and leadership to build
+technology initiatives that create a positive impact.
 
-- 💼 **[TU PUESTO O CARRERA]**: [DESCRIBE BREVEMENTE LO QUE HACES].
-- 🚀 Actualmente trabajo en **[TU PROYECTO O ÁREA]**.
-- 🤖 Me interesa **[TECNOLOGÍAS O TEMAS QUE TE APASIONAN]**.
-- 🎙️ Estoy construyendo **[TU MARCA, COMUNIDAD O PROYECTO PERSONAL]**.
-- 🌱 **Mi misión:** [EL IMPACTO QUE QUIERES GENERAR].
-- 💬 Háblame de **[TEMAS QUE DOMINAS]** y tendrás toda mi atención.
+- 🎓 **President of Information Systems Engineering at ULACIT**: leading a community of 600+ students and coordinating academic, technology and career development initiatives.
+- 📱 **Mobile Developer Intern at Element System**: building responsive Flutter applications, integrating RESTful APIs and collaborating through Scrum.
+- 💻 Former **Information Technology Intern at Stryker**, where I contributed to knowledge management, digital learning and operational efficiency.
+- 🚀 I enjoy working with **Python, Java, JavaScript, Dart, React and Flutter**.
+- 🌱 Currently pursuing a **Licentiate Degree in Information Systems with an emphasis in Software Development**.
+- 💬 Talk to me about **software development, mobile applications, project management and technology leadership**.
 <br>
 
 <div align="center">
@@ -58,7 +56,7 @@ Y EL IMPACTO QUE QUIERES GENERAR].
 ## my perfect stack`
 
 <!-- Edita la lista después de ?i= con tus tecnologías. -->
-<img src="https://skillicons.dev/icons?i=html,css,js,react,nodejs,python,postgres,git,github,docker,vscode&perline=6" alt="tech stack">
+<img src="https://skillicons.dev/icons?i=python,java,js,dart,html,css,react,flutter,mongodb,git,github,vscode,figma&perline=7" alt="tech stack">
 
 </div>
 

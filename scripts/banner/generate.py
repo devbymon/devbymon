@@ -30,21 +30,20 @@ TRAVELLER_COUNT = 900
 SEED = 314159
 
 ROWS = [
-    ("Subject", "TU NOMBRE"),
-    ("Role", "TU ROL · TU ESPECIALIDAD"),
-    ("Origin", "TU PAÍS"),
-    ("Education", "TU CARRERA · TU UNIVERSIDAD"),
-    ("Status", "Building + Learning + Shipping"),
-    ("ToolChain", "TU EDITOR · Git · GitHub"),
-    ("Core.Lang", "TUS LENGUAJES"),
-    ("Core.Frontend", "TU STACK FRONTEND"),
-    ("Core.Backend", "TU STACK BACKEND"),
-    ("Core.Database", "TUS BASES DE DATOS"),
-    ("Core.Infra", "TUS HERRAMIENTAS DE INFRA"),
-    ("Grid.Mail", "TU EMAIL"),
-    ("Grid.LinkedIn", "TU LINKEDIN"),
+    ("Subject", "Mon"),
+    ("Role", "Information Systems Engineer"),
+    ("Origin", "Costa Rica"),
+    ("Education", "ULACIT · Software Development"),
+    ("Status", "Building + Learning + Leading"),
+    ("ToolChain", "VS Code · PyCharm · Git · GitHub"),
+    ("Core.Lang", "Python · Java · JavaScript · Dart"),
+    ("Core.Frontend", "React · Flutter · HTML · CSS"),
+    ("Core.Backend", "REST APIs · Python · Java"),
+    ("Core.Database", "SQL Server · MongoDB · NoSQL"),
+    ("Core.Infra", "OCI · VMware · Cisco Packet Tracer"),
+    ("Grid.LinkedIn", "/in/monsserratt-esquivel-gonzález"),
     ("Grid.GitHub", "devbymon"),
-    ("Grid.X", "TU USUARIO"),
+    ("Languages", "Spanish · English B2+"),
 ]
 
 THEMES = {

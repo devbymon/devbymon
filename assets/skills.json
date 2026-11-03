@@ -2,12 +2,12 @@
   "title": "Skill Radar",
   "_comment": "Self-rated, 0-100. Edit these and the Charts workflow redraws the radar.",
   "axes": [
-    { "label": "Habilidad 1", "value": 70 },
-    { "label": "Habilidad 2", "value": 70 },
-    { "label": "Habilidad 3", "value": 70 },
-    { "label": "Habilidad 4", "value": 70 },
-    { "label": "Habilidad 5", "value": 70 },
-    { "label": "Habilidad 6", "value": 70 },
-    { "label": "Habilidad 7", "value": 70 }
+    { "label": "Software Development", "value": 78 },
+    { "label": "Mobile Development", "value": 75 },
+    { "label": "Project Management", "value": 82 },
+    { "label": "Leadership", "value": 88 },
+    { "label": "Databases", "value": 72 },
+    { "label": "Cloud & Networking", "value": 68 },
+    { "label": "Communication", "value": 85 }
   ]
 }

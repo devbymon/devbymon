@@ -340,7 +340,8 @@ def render_svg(
         ai, ai,
         source,
     ]
-    opacity_values = "0;0;1;1;1;1;1;1;0"
+    traveller_opacity_values = "0;0;1;1;1;1;1;1;1;1;0"
+    portrait_opacity_values = ".94;.94;0;0;0;0;0;0;0;0;.94"
 
     parts: list[str] = [
         '<svg xmlns="http://www.w3.org/2000/svg" '
@@ -397,16 +398,19 @@ def render_svg(
         centroid = pts.mean(axis=0)
         delta = (cosmos_centroid - centroid) * 0.18 + noise[band]
         d = point_path(pts)
+        delta_position = f'{num(delta[0])} {num(delta[1])}'
+        drift_values = ";".join(
+            ["0 0", "0 0", delta_position, delta_position] + ["0 0"] * 7
+        )
         parts.append(
             f'<path d="{d}" fill="none" stroke="{t["portrait"]}" stroke-width="1" '
             'opacity=".94">'
             f'<animateTransform attributeName="transform" type="translate" begin="{INTRO_SECONDS}s" '
             f'dur="{LOOP_SECONDS}s" repeatCount="indefinite" calcMode="linear" '
-            f'keyTimes="{key_times}" values="0 0;0 0;{num(delta[0])} {num(delta[1])};'
-            f'{num(delta[0])} {num(delta[1])};0 0;0 0;0 0;0 0;0 0"/>'
+            f'keyTimes="{key_times}" values="{drift_values}"/>'
             f'<animate attributeName="opacity" begin="{INTRO_SECONDS}s" dur="{LOOP_SECONDS}s" '
             f'repeatCount="indefinite" keyTimes="{key_times}" '
-            'values=".94;.94;0;0;0;0;0;0;.94"/></path>'
+            f'values="{portrait_opacity_values}"/></path>'
         )
 
     # Optimal-transport travellers, represented as tiny path squares (never glyphs).
@@ -419,7 +423,7 @@ def render_svg(
             f'keyTimes="{key_times}" values="{positions}"/>'
             f'<animate attributeName="opacity" begin="{INTRO_SECONDS}s" dur="{LOOP_SECONDS}s" '
             f'repeatCount="indefinite" calcMode="linear" keyTimes="{key_times}" '
-            f'values="{opacity_values}"/></path>'
+            f'values="{traveller_opacity_values}"/></path>'
         )
     parts.append("</g>")
 
@@ -521,7 +525,7 @@ def main() -> None:
         for name, points in sampled.items():
             np.save(DATA / f"{name}-{theme}.npy", points)
         svg = render_svg(theme, portraits[theme], sampled, rng)
-        output = ASSETS / f"banner-{theme}.v10.svg"
+        output = ASSETS / f"banner-{theme}.v11.svg"
         output.write_text(svg, encoding="utf-8")
         byte_size = output.stat().st_size
         print(

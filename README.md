@@ -16,34 +16,17 @@
   <img src="assets/banner-dark.v9.svg" width="100%" alt="profile.sh --live">
 </picture>
 
-<br><br><br>
+<br>
 
 <!-- NAME / TAGLINE - animated typing -->
-<img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=600&size=28&duration=2800&pause=1100&color=AA9BEF&center=true&vCenter=true&width=920&height=70&lines=Hey%2C+I%27m+Mon+%F0%9F%91%8B;Information+Systems+Engineer;Building+my+path+as+a+Full-Stack+Developer;I+love+turning+ideas+into+software" alt="Hey, I'm Mon — Information Systems Engineer and Full-Stack Developer">
+<img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=600&size=28&duration=3800&pause=1100&color=AA9BEF&center=true&vCenter=true&width=920&height=55&lines=Hi%2C+I%27m+Monsserratt+%F0%9F%91%8B;Information+Systems+Engineer;Full-Stack+%26+Mobile+Developer;Building+technology+with+purpose" alt="Hi, I'm Monsserratt — Information Systems Engineer, Full-Stack and Mobile Developer">
 
-<br><br>
+<br>
 
 <a href="https://linkedin.com/in/monsserratt-esquivel-gonz%C3%A1lez-b799992ab"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>&nbsp;&nbsp;
 <img src="https://img.shields.io/badge/Instagram-0d1117?style=for-the-badge&logo=instagram&logoColor=AA9BEF" alt="Instagram — link coming soon">
 
-<br><br>
-
-<table width="100%">
-<tr>
-<td width="33%" align="center">
-<sub>PROFILE STATUS</sub><br>
-<code>● ONLINE</code>
-</td>
-<td width="34%" align="center">
-<sub>PROFILE REACH</sub><br>
-<img src="https://komarev.com/ghpvc/?username=devbymon&style=flat-square&color=7957D5&label=VISITORS" alt="profile views">
-</td>
-<td width="33%" align="center">
-<sub>LOCATION</sub><br>
-<code>COSTA RICA · UTC-6</code>
-</td>
-</tr>
-</table>
+<br>
 
 </div>
 
@@ -71,39 +54,6 @@ technology initiatives that create a positive impact.
 
 <!-- Edita la lista después de ?i= con tus tecnologías. -->
 <img src="https://skillicons.dev/icons?i=python,java,js,dart,html,css,react,flutter,mongodb,git,github,vscode,figma&perline=7" alt="tech stack">
-
-</div>
-
----
-
-<div align="center">
-
-## signals
-
-<table>
-<tr>
-<td width="50%" align="center" valign="middle">
-
-<!-- Self-rated radar - edit assets/skills.json, the workflow redraws it -->
-<picture>
-  <source media="(prefers-color-scheme: dark)"  srcset="assets/radar-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/radar-light.svg">
-  <img src="assets/radar-dark.svg" width="400" alt="skill radar chart">
-</picture>
-
-</td>
-<td width="50%" align="center" valign="middle">
-
-<!-- Hand-authored contract & language stack radar - edit assets/langmix.json -->
-<picture>
-  <source media="(prefers-color-scheme: dark)"  srcset="assets/radar-langs-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/radar-langs-light.svg">
-  <img src="assets/radar-langs-dark.svg" width="400" alt="language radar chart">
-</picture>
-
-</td>
-</tr>
-</table>
 
 </div>
 

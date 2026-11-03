@@ -19,6 +19,7 @@ from scipy.spatial.distance import cdist
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "assets/source/portrait-cutout.png"
+FALCON_SOURCE = ROOT / "assets/source/falcon-silhouette.png"
 ASSETS = ROOT / "assets"
 LOGOS = Path(__file__).resolve().parent / "logos"
 DATA = Path(__file__).resolve().parent / "data"
@@ -108,17 +109,23 @@ def make_logos() -> dict[str, Image.Image]:
         )
     logos["cosmos"] = cosmos
 
-    # ULACIT wordmark, kept broad enough to remain legible as moving particles.
-    ulacit = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    d = ImageDraw.Draw(ulacit)
-    font = bold_font(76)
-    text = "ULACIT"
-    bounds = d.textbbox((0, 0), text, font=font)
-    text_w = bounds[2] - bounds[0]
-    text_h = bounds[3] - bounds[1]
-    d.text(((size - text_w) / 2, (size - text_h) / 2 - bounds[1]), text, font=font, fill="black")
-    d.rounded_rectangle((62, 260, 338, 276), radius=8, fill="black")
-    logos["ulacit"] = ulacit
+    # Original falcon silhouette, normalized into a bold particle-friendly mask.
+    falcon_source = Image.open(FALCON_SOURCE).convert("RGBA")
+    falcon_alpha = falcon_source.getchannel("A").point(lambda value: 255 if value > 127 else 0)
+    bounds = falcon_alpha.getbbox()
+    if bounds is None:
+        raise ValueError(f"Falcon silhouette has no visible pixels: {FALCON_SOURCE}")
+    falcon_alpha = falcon_alpha.crop(bounds)
+    falcon_alpha.thumbnail((340, 340), Image.Resampling.LANCZOS)
+    falcon = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    falcon_mask = Image.new("RGBA", falcon_alpha.size, "black")
+    falcon_mask.putalpha(falcon_alpha)
+    falcon.paste(
+        falcon_mask,
+        ((size - falcon_alpha.width) // 2, (size - falcon_alpha.height) // 2),
+        falcon_mask,
+    )
+    logos["falcon"] = falcon
 
     # Development + AI: a microchip with a clear AI core.
     dev_ai = Image.new("RGBA", (size, size), (0, 0, 0, 0))
@@ -288,8 +295,8 @@ def render_svg(
     n = min(TRAVELLER_COUNT, len(portrait))
     source = portrait[rng.choice(len(portrait), n, replace=False)]
     cosmos = transport(source, logo_points["cosmos"][:n])
-    ulacit = transport(cosmos, logo_points["ulacit"][:n])
-    dev_ai = transport(ulacit, logo_points["dev-ai"][:n])
+    falcon = transport(cosmos, logo_points["falcon"][:n])
+    dev_ai = transport(falcon, logo_points["dev-ai"][:n])
 
     # Explicit uneven phase boundaries: 3.0 portrait, 2.0 per logo,
     # and four 1.3 transitions = 14.2 seconds.
@@ -297,7 +304,7 @@ def render_svg(
     key_times = ";".join(num(v / LOOP_SECONDS) for v in times)
     # Returning each traveller to its exact starting portrait coordinate keeps
     # the repeat boundary seamless. All logo-to-logo morphs use optimal transport.
-    frames = [source, source, cosmos, cosmos, ulacit, ulacit, dev_ai, dev_ai, source]
+    frames = [source, source, cosmos, cosmos, falcon, falcon, dev_ai, dev_ai, source]
     opacity_values = "0;0;1;1;1;1;1;1;0"
 
     parts: list[str] = [
@@ -306,7 +313,7 @@ def render_svg(
         'aria-labelledby="title desc">',
         "<title id=\"title\">devbymon's live system profile</title>",
         '<desc id="desc">Animated terminal profile with a dithered portrait, particle universe, '
-        "ULACIT wordmark, and development AI symbol.</desc>",
+        "falcon silhouette, and development AI symbol.</desc>",
         "<defs>",
         '<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">'
         f'<feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="{t["shadow"]}" '
@@ -456,6 +463,8 @@ def render_svg(
 def main() -> None:
     if not SOURCE.exists():
         raise SystemExit(f"Missing source portrait: {SOURCE}")
+    if not FALCON_SOURCE.exists():
+        raise SystemExit(f"Missing falcon silhouette: {FALCON_SOURCE}")
     ASSETS.mkdir(parents=True, exist_ok=True)
     DATA.mkdir(parents=True, exist_ok=True)
     logos = make_logos()

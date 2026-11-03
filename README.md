@@ -36,6 +36,8 @@
 
 ## A little about me
 
+<br>
+
 Hi, I'm **Monsserratt**, an Information Systems Engineer from Costa Rica 🇨🇷.
 I turn ideas into practical software by combining development, project management
 and people-focused leadership.

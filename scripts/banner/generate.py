@@ -202,7 +202,7 @@ def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
 
     if theme == "dark":
         lum = np.asarray(ImageOps.grayscale(rgb), dtype=np.float32)
-        prepared = Image.fromarray(np.uint8(np.clip(lum * alpha, 0, 255)), "L")
+        prepared = Image.fromarray(np.uint8(np.clip(lum * alpha, 0, 255)))
         select_lit = True
     else:
         white = Image.new("RGBA", crop.size, "white")
@@ -213,7 +213,7 @@ def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
     # Equalize against the subject only (ignore empty alpha) so lit skin vs dark
     # hair doesn't crush midtones; then punch local contrast for facial edges.
     if theme == "dark":
-        mask = Image.fromarray(np.uint8((alpha > 0.08) * 255), "L")
+        mask = Image.fromarray(np.uint8((alpha > 0.08) * 255))
         prepared = ImageOps.equalize(prepared, mask=mask)
     else:
         prepared = ImageOps.autocontrast(prepared, cutoff=1)

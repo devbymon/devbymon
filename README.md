@@ -9,7 +9,7 @@
 -->
 
 <!-- NAME / TAGLINE - animated typing -->
-<img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=600&size=28&duration=3800&pause=1100&color=AA9BEF&center=true&vCenter=true&width=920&height=55&lines=Hi%2C+I%27m+Monsserratt+%F0%9F%91%8B;I+turn+ideas+into+meaningful+software;I+build+for+web+and+mobile;Technology%2C+leadership+%26+purpose" alt="Hi, I'm Monsserratt — I turn ideas into meaningful software for web and mobile">
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3800&pause=1100&color=AA9BEF&center=true&vCenter=true&width=920&height=55&lines=Monsserratt+Esquivel+Gonz%C3%A1lez;Information+Systems+Engineer;Mobile+%26+Full-Stack+Developer;Building+tech.+Leading+communities.+Creating+impact." alt="Monsserratt Esquivel González — Information Systems Engineer, Mobile and Full-Stack Developer">
 
 <br>
 
@@ -21,16 +21,12 @@
   <img src="assets/banner-dark.v9.svg" width="100%" alt="Animated visual profile for @devbymon">
 </picture>
 
-<br>
+<br><br>
 
 <a href="https://linkedin.com/in/monsserratt-esquivel-gonz%C3%A1lez-b799992ab"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>&nbsp;&nbsp;
 <img src="https://img.shields.io/badge/Instagram-0d1117?style=for-the-badge&logo=instagram&logoColor=AA9BEF" alt="Instagram — link coming soon">
 
 <br>
-
-<a href="#about-me"><img src="https://img.shields.io/badge/ABOUT_ME-161B22?style=flat-square&logoColor=white" alt="About me"></a>&nbsp;
-<a href="#tech-stack"><img src="https://img.shields.io/badge/TECH_STACK-161B22?style=flat-square&logoColor=white" alt="Tech stack"></a>&nbsp;
-<a href="#github-activity"><img src="https://img.shields.io/badge/GITHUB_ACTIVITY-161B22?style=flat-square&logoColor=white" alt="GitHub activity"></a>
 
 </div>
 

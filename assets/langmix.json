@@ -1,5 +1,5 @@
 {
-  "title": "Languages & Development Stack",
+  "title": "Development Stack",
   "_comment": "Hand-authored stack radar (was auto-pulled from GitHub language bytes). Values 0-100. Edit these and the Charts workflow redraws it.",
   "axes": [
     { "label": "Python", "value": 70 },

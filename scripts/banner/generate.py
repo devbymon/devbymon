@@ -43,7 +43,7 @@ ROWS = [
     ("Core.Infra", "OCI · VMware · Cisco Packet Tracer"),
     ("Grid.LinkedIn", "/in/monsserratt-esquivel-gonzález"),
     ("Grid.GitHub", "devbymon"),
-    ("Languages", "Spanish · English B2+"),
+    ("Languages", "Spanish · English (B2+)"),
 ]
 
 THEMES = {

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="250" viewBox="0 0 1180 250" role="img" aria-labelledby="title desc">
+  <title id="title">Mon's technology stack</title>
+  <desc id="desc">A non-clickable neon panel listing programming languages, frameworks, data tools and product tools.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#070B18"/><stop offset="1" stop-color="#101833"/></linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#7C5CFC"/><stop offset="1" stop-color="#35C7FF"/></linearGradient>
+  </defs>
+  <rect x="1" y="1" width="1178" height="248" rx="24" fill="url(#bg)" stroke="#283A64" stroke-width="2"/>
+  <text x="44" y="42" fill="#B7A6FF" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="2">CORE SYSTEMS</text>
+  <path d="M44 57H1136" stroke="url(#edge)" opacity=".5"/>
+  <g font-family="Inter,Arial,sans-serif" font-size="15" font-weight="600" text-anchor="middle">
+    <g fill="#10172C" stroke="#6D5DFB"><rect x="44" y="80" width="142" height="48" rx="15"/><text x="115" y="110" fill="#E6EDFF">Python</text></g>
+    <g fill="#10172C" stroke="#6D5DFB"><rect x="202" y="80" width="142" height="48" rx="15"/><text x="273" y="110" fill="#E6EDFF">Java</text></g>
+    <g fill="#10172C" stroke="#6D5DFB"><rect x="360" y="80" width="142" height="48" rx="15"/><text x="431" y="110" fill="#E6EDFF">JavaScript</text></g>
+    <g fill="#10172C" stroke="#6D5DFB"><rect x="518" y="80" width="142" height="48" rx="15"/><text x="589" y="110" fill="#E6EDFF">Dart</text></g>
+    <g fill="#10172C" stroke="#35C7FF"><rect x="676" y="80" width="142" height="48" rx="15"/><text x="747" y="110" fill="#E6EDFF">React</text></g>
+    <g fill="#10172C" stroke="#35C7FF"><rect x="834" y="80" width="142" height="48" rx="15"/><text x="905" y="110" fill="#E6EDFF">Flutter</text></g>
+    <g fill="#10172C" stroke="#35C7FF"><rect x="992" y="80" width="144" height="48" rx="15"/><text x="1064" y="110" fill="#E6EDFF">REST APIs</text></g>
+    <g fill="#10172C" stroke="#35C7FF"><rect x="123" y="151" width="160" height="48" rx="15"/><text x="203" y="181" fill="#E6EDFF">SQL Server</text></g>
+    <g fill="#10172C" stroke="#35C7FF"><rect x="299" y="151" width="160" height="48" rx="15"/><text x="379" y="181" fill="#E6EDFF">MongoDB</text></g>
+    <g fill="#10172C" stroke="#6D5DFB"><rect x="475" y="151" width="160" height="48" rx="15"/><text x="555" y="181" fill="#E6EDFF">Git + GitHub</text></g>
+    <g fill="#10172C" stroke="#6D5DFB"><rect x="651" y="151" width="160" height="48" rx="15"/><text x="731" y="181" fill="#E6EDFF">VS Code</text></g>
+    <g fill="#10172C" stroke="#6D5DFB"><rect x="827" y="151" width="160" height="48" rx="15"/><text x="907" y="181" fill="#E6EDFF">Figma</text></g>
+  </g>
+  <text x="590" y="229" text-anchor="middle" fill="#7286AA" font-family="ui-monospace,monospace" font-size="11" letter-spacing="1.4">LANGUAGES · FRAMEWORKS · DATA · PRODUCT</text>
+</svg>

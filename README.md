@@ -16,20 +16,34 @@
   <img src="assets/banner-dark.v9.svg" width="100%" alt="profile.sh --live">
 </picture>
 
-<br>
+<br><br><br>
 
 <!-- NAME / TAGLINE - animated typing -->
-<a href="https://github.com/devbymon">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=26&duration=2600&pause=900&color=AA9BEF&center=true&vCenter=true&width=880&lines=Mon+-+Information+Systems+Engineer;Software+Development+/+Leadership+/+Innovation;Building+technology+with+positive+impact" alt="typing banner">
-</a>
+<img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=600&size=28&duration=2800&pause=1100&color=AA9BEF&center=true&vCenter=true&width=920&height=70&lines=Hey%2C+I%27m+Mon+%F0%9F%91%8B;Information+Systems+Engineer;Building+my+path+as+a+Full-Stack+Developer;I+love+turning+ideas+into+software" alt="Hey, I'm Mon — Information Systems Engineer and Full-Stack Developer">
 
-<br>
+<br><br>
 
-<a href="https://linkedin.com/in/monsserratt-esquivel-gonz%C3%A1lez-b799992ab"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+<a href="https://linkedin.com/in/monsserratt-esquivel-gonz%C3%A1lez-b799992ab"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>&nbsp;&nbsp;
+<img src="https://img.shields.io/badge/Instagram-0d1117?style=for-the-badge&logo=instagram&logoColor=AA9BEF" alt="Instagram — link coming soon">
 
-<br>
+<br><br>
 
-<img src="https://komarev.com/ghpvc/?username=devbymon&style=flat&color=aa9bef&label=profile+views" alt="profile views">
+<table width="100%">
+<tr>
+<td width="33%" align="center">
+<sub>PROFILE STATUS</sub><br>
+<code>● ONLINE</code>
+</td>
+<td width="34%" align="center">
+<sub>PROFILE REACH</sub><br>
+<img src="https://komarev.com/ghpvc/?username=devbymon&style=flat-square&color=7957D5&label=VISITORS" alt="profile views">
+</td>
+<td width="33%" align="center">
+<sub>LOCATION</sub><br>
+<code>COSTA RICA · UTC-6</code>
+</td>
+</tr>
+</table>
 
 </div>
 

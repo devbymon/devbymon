@@ -1,0 +1,12 @@
+{
+  "title": "Language Stack",
+  "_comment": "Hand-authored stack radar (was auto-pulled from GitHub language bytes). Values 0-100. Edit these and the Charts workflow redraws it.",
+  "axes": [
+    { "label": "Lenguaje 1", "value": 70 },
+    { "label": "Lenguaje 2", "value": 70 },
+    { "label": "Lenguaje 3", "value": 70 },
+    { "label": "Lenguaje 4", "value": 70 },
+    { "label": "Lenguaje 5", "value": 70 },
+    { "label": "Lenguaje 6", "value": 70 }
+  ]
+}

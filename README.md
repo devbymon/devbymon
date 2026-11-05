@@ -29,7 +29,7 @@
 <br><br>
 
 <a href="https://linkedin.com/in/monsserratt-esquivel-gonz%C3%A1lez-b799992ab"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Instagram-0d1117?style=for-the-badge&logo=instagram&logoColor=AA9BEF" alt="Instagram — link coming soon">
+<a href="https://www.instagram.com/devbymon/"><img src="https://img.shields.io/badge/Instagram-0d1117?style=for-the-badge&logo=instagram&logoColor=AA9BEF" alt="Instagram"></a>
 
 <br>
 
